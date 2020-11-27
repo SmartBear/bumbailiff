@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# The bumbailiff allows the team to take up a small amount of technical debt
+# (TODOs in the code) for a limited period. After that period the script fails.
+#
+#
+# For example, if the allowed period for all the TODOs is 14 days.
+#   * It's OK to have 1 TODO that is 13 days old
+#   * It's OK to have 3 TODOs that are 4 days old
+#   * It's NOT OK to have 3 TODOs that are 5 days old
+#   * It's NOT OK to have 1 TODO that is 14 days old
+#
+if [ -n "$BUMBAILIFF_IGNORE_LA_LA_LA" ] ; then exit 0 ; fi
+set -uf -o pipefail
+
+ICON_OK="🌱 "
+ICON_WARNING="⚠️  "
+ICON_KO="⛔️ "
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+NC='\033[0m'
+LIGHT_GRAY='\033[0;37m'
+MAX_AGE=${1:-14}
+OK_AGE=$((${MAX_AGE} / 2))
+
+todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.feature" || echo "") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
+
+now_seconds_since_epoch=$(date +%s)
+total_days=0
+
+while read -r line; do
+  if [[ "${line}" =~ ([0-9]{10}) ]]; then
+    commit_seconds_since_epoch=${BASH_REMATCH[1]}
+    days_old=$(( (${now_seconds_since_epoch} - ${commit_seconds_since_epoch}) / 86400 ))
+    total_days=$((${total_days} + ${days_old}))
+    shopt -s extglob
+    location="${line%// TODO*}"
+    location="${location%%*( )}"
+    todo="${line##*// }"
+
+    if ((${days_old}<=${OK_AGE}))
+    then
+      color="${GREEN}"
+      icon=${ICON_OK}
+    elif ((${days_old}<=${MAX_AGE}))
+    then
+      color="${ORANGE}"
+      icon=${ICON_WARNING}
+    else
+      color="${RED}"
+      icon=${ICON_KO}
+    fi
+    echo -e "${color}${days_old} days old${LIGHT_GRAY} ${location}${NC}\n${todo}\n"
+  else
+    echo -e "${BOLD}${line}${NC}"
+  fi
+done <<< "${todos}"
+
+status=0
+if ((${total_days}<=${OK_AGE}))
+then
+  color="${GREEN}"
+  icon=${ICON_OK}
+elif ((${total_days}<=${MAX_AGE}))
+then
+  color="${ORANGE}"
+  icon=${ICON_WARNING}
+else
+  color="${RED}"
+  status=1
+  icon=${ICON_KO}
+fi
+
+echo -e "${icon}${color}${total_days} TODO-days accumulated (max allowance: ${MAX_AGE} 💵).${NC}"
+exit ${status}
