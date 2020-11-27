@@ -1,6 +1,6 @@
 {
   "name": "bumbailiff",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Keep your technical debt under control.",
   "bin": {
     "bumbailiff": "./src/bumbailiff"
