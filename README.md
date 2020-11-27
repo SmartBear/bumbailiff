@@ -2,9 +2,7 @@
 
 Keep your technical debt under control.
 
-Check out our [blog post](https://cucumber.io/blog/bdd/todo-or-not-todo/) to learn more about the concept behind this tool.
-
-Bumbailiff works on any git repository.
+Check out our [blog post](https://cucumber.io/blog/bdd/todo-or-not-todo/) to learn more about the concept behind this tool. Bumbailiff works on any git repository.
 
 ## Installation
 
