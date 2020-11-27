@@ -1,0 +1,35 @@
+{
+  "name": "bumbailiff",
+  "version": "0.0.1",
+  "description": "Keep your technical debt under control.",
+  "bin": {
+    "bumbailiff": "./src/bumbailiff"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartBear/bumbailiff.git"
+  },
+  "keywords": [
+    "techdebt",
+    "technical debt",
+    "tech debt",
+    "bumbailiff",
+    "todo",
+    "todos",
+    "budget"
+  ],
+  "author": "Aslak Hellesøy <aslak.hellesoy@gmail.com>",
+  "contributors": [
+    "Julien Biezemans <jb@jbpros.com>",
+    "Steve Tooke <steve.tooke@smartbear.com>",
+    "Matt Wynne <matt@mattwynne.net>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SmartBear/bumbailiff/issues"
+  },
+  "homepage": "https://github.com/SmartBear/bumbailiff#readme"
+}
