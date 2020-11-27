@@ -8,6 +8,24 @@ Bumbailiff works on any git repository.
 
 ## Installation
 
+There are several ways of installing and running bumbailiff.
+
+### Node.js / NPM
+
+If you have [Node.js](https://nodejs.org/en/) and [NPM](https://docs.npmjs.com/about-npm) installed, you can use [`npx`](https://docs.npmjs.com/cli/v7/commands/npx) to execute bumbailiff:
+
+    npx bumbailiff
+
+You can add bumbailiff to your Node.js project:
+
+    npm install --save-dev bumbailiff
+
+Or alternatively:
+
+    yarn add --dev bumbailiff
+
+### Manual download
+
 Download and decompress the archive of this repository in the directory of your choice:
 
     curl -LO https://github.com/SmartBear/bumbailiff/archive/main.zip
