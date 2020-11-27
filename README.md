@@ -38,3 +38,9 @@ Add the location of the `bumbailiff-main/src` dir to your `$PATH`.
 This will check that you git repository does not contain more than 10 days of accumulated TODO-days. To do so, bumbailiff will query your git repository and search for all the TODOs it can find, compute the age of each one and print out the sum.
 
 The maximum debt age is optional and defaults to 14.
+
+## Set up on your project
+
+After installing bumbailiff, you might want to set up a pre-push hook in your repository to prevent pushing if the tech debt limit has been reached:
+
+    echo "#\!/usr/bin/env bash\nbumbailiff" >> .git/hooks/pre-push && chmod +x .git/hooks/pre-push
