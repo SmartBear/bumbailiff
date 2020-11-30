@@ -27,6 +27,9 @@ MAX_AGE=${1:-14}
 OK_AGE=$((${MAX_AGE} / 2))
 
 todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature"Ò) | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
+if [[ $? != 0 ]]; then
+  exit $?
+fi
 
 now_seconds_since_epoch=$(date +%s)
 total_days=0
