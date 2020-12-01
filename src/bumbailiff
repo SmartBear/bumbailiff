@@ -28,6 +28,13 @@ OK_AGE=$((${MAX_AGE} / 2))
 
 todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
 
+scan_result=$?
+
+if [[ $scan_result -ne 0 && $scan_result -ne 1 ]]; then
+  echo "TODOs could not be scanned, make sure you're running bumbailiff on a Git repository."
+  exit $scan_result
+fi
+
 now_seconds_since_epoch=$(date +%s)
 total_days=0
 
