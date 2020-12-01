@@ -44,3 +44,7 @@ The maximum debt age is optional and defaults to 14.
 After installing bumbailiff, you might want to set up a pre-push hook in your repository to prevent pushing if the tech debt limit has been reached:
 
     echo "#\!/usr/bin/env bash\nbumbailiff" >> .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+
+## Credits
+
+This project is based off the [original work](https://gist.github.com/aslakhellesoy/de419d6ded6249e8a68c05d296314bf2) of [Aslak Hellesøy](https://github.com/aslakhellesoy). Some of the bash work around bumbailiff was also inspired by [Steve Tooke](https://github.com/tooky/)'s [retro-tools](https://github.com/tooky/retro-tools), got check it out, it's another great development team tool!
