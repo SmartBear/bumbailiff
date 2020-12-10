@@ -26,7 +26,7 @@ LIGHT_GRAY='\033[0;37m'
 MAX_AGE=${1:-14}
 OK_AGE=$((${MAX_AGE} / 2))
 
-todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
+todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature" "*.java") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
 
 scan_result=$?
 
