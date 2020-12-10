@@ -19,14 +19,13 @@ ICON_KO="⛔️ "
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
 BOLD='\033[1m'
 NC='\033[0m'
 LIGHT_GRAY='\033[0;37m'
 MAX_AGE=${1:-14}
-OK_AGE=$((${MAX_AGE} / 2))
+OK_AGE=$(( MAX_AGE / 2))
 
-todos=$((git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature" "*.java") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
+todos=$( (git grep --files-with-matches "\(\/\/\|\#\)\s*TODO" -- "*.js" "*.jsx" "*.ts" "*.tsx" "*.rb" "*.feature" "*.java") | xargs -I % sh -c 'echo %; git blame --date=raw % | grep "\(\/\/\|\#\)\s*TODO"')
 
 scan_result=$?
 
@@ -41,18 +40,18 @@ total_days=0
 while read -r line; do
   if [[ "${line}" =~ ([0-9]{10}) ]]; then
     commit_seconds_since_epoch=${BASH_REMATCH[1]}
-    days_old=$(( (${now_seconds_since_epoch} - ${commit_seconds_since_epoch}) / 86400 ))
-    total_days=$((${total_days} + ${days_old}))
+    days_old=$((( now_seconds_since_epoch - commit_seconds_since_epoch ) / 86400 ))
+    total_days=$(( total_days + days_old ))
     shopt -s extglob
     location="${line%// TODO*}"
     location="${location%%*( )}"
     todo="${line##*// }"
 
-    if ((${days_old}<=${OK_AGE}))
+    if (( days_old <= OK_AGE))
     then
       color="${GREEN}"
       icon=${ICON_OK}
-    elif ((${days_old}<=${MAX_AGE}))
+    elif (( days_old <= MAX_AGE ))
     then
       color="${ORANGE}"
       icon=${ICON_WARNING}
@@ -67,11 +66,11 @@ while read -r line; do
 done <<< "${todos}"
 
 status=0
-if ((${total_days}<=${OK_AGE}))
+if (( total_days <= OK_AGE ))
 then
   color="${GREEN}"
   icon=${ICON_OK}
-elif ((${total_days}<=${MAX_AGE}))
+elif (( total_days <= MAX_AGE ))
 then
   color="${ORANGE}"
   icon=${ICON_WARNING}
