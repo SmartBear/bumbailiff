@@ -1,9 +1,9 @@
 {
   "name": "bumbailiff",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Keep your technical debt under control.",
   "bin": {
-    "bumbailiff": "./src/bumbailiff"
+    "bumbailiff": "src/bumbailiff"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
