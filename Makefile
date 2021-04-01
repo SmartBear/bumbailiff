@@ -15,10 +15,7 @@ $(BUILDDIR)/tests/%.output: tests/%.sh tests/%.expected $(SRC)
 	@mkdir -p $(dir $@)/$*
 	@(cd $(dir $@)/$* && \
 	  PATH=/bin:/usr/bin:$(abspath src):$(abspath tests) \
-	  VISUAL= \
-	  EDITOR= \
-	  PS4='+ ' \
-	    /bin/sh $(abspath $<) > $(abspath $@) 2>&1) || ! cat $@
+	    /bin/sh $(abspath $<) | $(abspath normalize-output.sh) > $(abspath $@) 2>&1) || ! cat $@
 
 clean:
 	rm -rf $(BUILDDIR)
