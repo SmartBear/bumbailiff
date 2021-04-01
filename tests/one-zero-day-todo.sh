@@ -1,3 +1,5 @@
+export GIT_AUTHOR_NAME="Daisy Developer"
+export GIT_AUTHOR_EMAIL="daisy@developer.com"
 mkdir -p tmp/git/one-zero-day-todo
 cd tmp/git/one-zero-day-todo
 git init --quiet .
