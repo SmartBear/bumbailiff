@@ -18,7 +18,7 @@ $(BUILDDIR)/tests/%.output: tests/%.sh tests/%.expected $(SRC)
 	  VISUAL= \
 	  EDITOR= \
 	  PS4='+ ' \
-	    /bin/sh -v $(abspath $<) > $(abspath $@) 2>&1) || ! cat $@
+	    /bin/sh $(abspath $<) > $(abspath $@) 2>&1) || ! cat $@
 
 clean:
 	rm -rf $(BUILDDIR)

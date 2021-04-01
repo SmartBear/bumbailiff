@@ -1,5 +1,3 @@
-cd /tmp
-bumbailiff || echo $?
 fatal: not a git repository (or any of the parent directories): .git
 TODOs could not be scanned, make sure you're running bumbailiff on a Git repository.
 128
