@@ -39,7 +39,7 @@ now_seconds_since_epoch=$(date +%s)
 total_days=0
 
 while read -r line; do
-  if [[ "${line}" =~ ([0-9]{10}) ]]; then
+  if [[ "${line}" =~ \(.*([0-9]{10}).*\) ]]; then
     commit_seconds_since_epoch=${BASH_REMATCH[1]}
     days_old=$(( (${now_seconds_since_epoch} - ${commit_seconds_since_epoch}) / 86400 ))
     total_days=$((${total_days} + ${days_old}))
