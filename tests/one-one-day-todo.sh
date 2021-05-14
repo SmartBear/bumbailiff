@@ -1,4 +1,8 @@
-yesterday=$(date -v -1d) # OSX/BSD only!
+if [ "$(uname)" = "Linux" ] ; then
+    yesterday=$(date --date="1 day ago" -R)
+else
+    yesterday=$(date -v -1d) # OSX/BSD only!
+fi
 export GIT_AUTHOR_NAME="Daisy Developer"
 export GIT_AUTHOR_EMAIL="daisy@developer.com"
 export GIT_AUTHOR_DATE="$yesterday"
